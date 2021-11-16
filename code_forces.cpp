@@ -769,7 +769,7 @@ int main()
     return 0;
 }
 
-*/
+
 
 // B.Moamen and k-subsequences (incompleted)
 int main()
@@ -798,3 +798,167 @@ int main()
     }
     return 0;
 }
+
+// Two Buttons
+int main()
+{
+    Taha_on_da_code;
+    int n, m, dis[20010]; cin >> n >> m;
+    memset(dis, 0, sizeof dis);
+    if (n >= m) {cout << n-m; return 0;} queue <int> bfs;
+    bfs.push(n);
+    while(!bfs.empty()) {
+        int cur = bfs.front();
+        bfs.pop();
+        if (cur == m) {
+            cout << dis[cur];
+            return 0;
+        }
+        for (int i = 0; i < 2; i++) {
+            int d = (i%2 ? 2*cur : cur-1);
+            if (d < 2*m && d > 0 && !dis[d]) {
+                dis[d] = dis[cur] + 1;
+                bfs.push(d);
+            }
+        }
+    }
+    return 0;
+}
+
+// Kefa and Park
+
+vector <int> adj[100010];
+int obs[100010];
+ 
+void dfs(int cur, int m, int p, int c, int m_c, int &cnt)
+{
+    int ch = 0;
+    if (obs[cur]) c++;
+    else c = 0;
+    m_c = max(c, m_c);
+    for (auto &i : adj[cur]) {
+        if (i != p) {
+            dfs(i, m, cur, c, m_c, cnt);
+            ch++;
+        }
+    }
+    if (!ch && m_c <= m) cnt++;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, m, cnt = 0, p = 0; cin >> n >> m;
+    for (int i = 1; i <= n; i++) {
+        cin >> obs[i];
+    }
+    while(--n) {
+        int f, t; cin >> f >> t;
+        adj[f].push_back(t);
+        adj[t].push_back(f);
+    } dfs(1, m, p, 0, 0, cnt);
+    cout << cnt;
+    return 0;
+}
+
+// Learning Languages
+
+vector <int> adj[101]; set <int> nodes;
+ 
+void dfs(int cur)
+{
+    nodes.erase(cur);
+    if (nodes.empty()) return;
+    for (auto &i : adj[cur])
+        if (nodes.find(i) != nodes.end()) dfs(i);
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, m, k, l, cost = 0; bool flag = false; cin >> n >> m;
+    while(n--) {
+        int c; cin >> c;
+        if (!c) cost++;
+        else {
+            cin >> k;
+            nodes.insert(k);
+            while (--c) {
+                cin >> l;
+                adj[k].push_back(l);
+                adj[l].push_back(k);
+                nodes.insert(l);
+            }
+        }
+    }
+    while (!nodes.empty()) {
+        cost++; flag = true;
+        dfs(*nodes.begin());
+    }
+    cout << cost-flag;
+    return 0;
+}
+
+// Reposts
+
+map <string, vector<string>> pu;
+map <string, bool> vis; int c = 0, l_c = 0;
+ 
+void dfs(string cur)
+{
+    c++; l_c = max(l_c, c);
+    vis[cur] = true;
+    for (auto &i : pu[cur]) {
+        if (!vis[i]) dfs(i);
+        c--;
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n; string f, g, t; cin >> n;
+    while(n--) {
+        cin >> t >> g >> f;
+        for (auto &i : f) i = tolower(i);
+        for (auto &i : t) i = tolower(i);
+        pu[f].push_back(t);
+    } dfs("polycarp");
+    cout << l_c;
+    return 0;
+}
+
+// DZY loves chemistry
+ 
+vector <int> adj[3000]; set <int> nodes;
+ 
+void dfs(int cur, int &l)
+{
+    nodes.erase(cur);
+    for (auto &i : adj[cur]) {
+        if (nodes.find(i) != nodes.end()) {
+            l++; dfs(i, l);
+        }
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, m, l; ll ans = 1; cin >> n >> m;
+    while(m--) {
+        int f, t; cin >> f >> t;
+        adj[f].push_back(t);
+        adj[t].push_back(f);
+        nodes.insert(f);
+        nodes.insert(t);
+    }
+    while(!nodes.empty()) {
+        l = 1;
+        dfs(*nodes.begin(), l);
+        ans*=(ll)pow(2, l-1);
+    }
+    cout << ans;
+    return 0;
+}
+*/
