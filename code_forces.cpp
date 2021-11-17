@@ -1,11 +1,21 @@
 #include <iostream>
+#include <chrono>
 #include <string>
 #include <sstream>
-#include <bits/stdc++.h>
 #include <cmath>
-#include <string.h>
-
-#define speed_up ios_base::sync_with_stdio(false); cin.tie(NULL);
+#include <iomanip>
+#include <cstring>
+#include <string>
+#include <algorithm>
+#include <array>
+#include <vector>
+#include <deque>
+#include <set>
+#include <map>
+#include <queue>
+ 
+typedef long long ll;
+#define Taha_on_da_code ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 using namespace std;
 
@@ -959,6 +969,43 @@ int main()
         ans*=(ll)pow(2, l-1);
     }
     cout << ans;
+    return 0;
+}
+
+
+// Mr. Kitayuta's Colorful Graph
+
+vector <int> adj[101][101]; set <int> col; bool vis[101];
+ 
+void dfs (int c, int x, int y, int &cnt)
+{
+    vis[x] = true;
+    if (x == y) {cnt++; return;}
+    for (auto &i : adj[c][x]) {
+        if (!vis[i]) dfs(c, i, y, cnt);
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, m; cin >> n >> m;
+    while(m--) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        col.insert(c);
+        adj[c][a].push_back(b);
+        adj[c][b].push_back(a);
+    }
+    int q; cin >> q;
+    while(q--) {
+        int x, y, cnt = 0; cin >> x >> y;
+        for (auto &i : col) {
+            memset(vis, false, sizeof vis);
+            dfs(i, x, y, cnt);
+        }
+        cout << cnt << endl;
+    }
     return 0;
 }
 */
