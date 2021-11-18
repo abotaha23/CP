@@ -1063,4 +1063,36 @@ int main()
     for (auto &i : anss) cout << i << ' ';
     return 0;
 }
+
+// Ice Cave
+
+string g[501]; int dx[] = {-1, 1, 0, 0}, dy[] = {0, 0, -1, 1};
+ 
+void dfs(int x, int y, int &xw, int &yw, int &n, int &m, bool &ans)
+{
+    g[y][x] = 'X';
+    for (int i = 0; i < 4; i++) {
+        if (x+dx[i] >= 0 && x+dx[i] < m && y+dy[i] >= 0 && y+dy[i] < n) {
+            if (yw == y+dy[i] && xw == x+dx[i]) {ans = true; return;}
+            if (g[y+dy[i]][x+dx[i]] == '.')
+                dfs(x + dx[i], y + dy[i], xw, yw, n, m, ans);
+        }
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, m, x0, y0, x, y, cnt = 0; bool ans = false; cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> g[i];
+    cin >> y0 >> x0 >> y >> x; x0--; y0--; x--; y--;
+    for (int i = 0; i < 4; i++) {
+        if (x+dx[i] >= 0 && x+dx[i] < m && y+dy[i] >= 0 && y+dy[i] < n) {
+            if (g[y+dy[i]][x+dx[i]] == '.' || (x0 == x+dx[i] && y0 == y+dy[i])) cnt++;
+        }
+    }
+    dfs(x0, y0, x, y, n, m, ans);
+    cout << (ans && (g[y][x] == 'X' || cnt > 1) ? "YES" : "NO");
+    return 0;
+}
 */
