@@ -1008,4 +1008,59 @@ int main()
     }
     return 0;
 }
+
+// Choosing Capital for Treeland
+
+map <int, vector <pair <int, int>>> adj; map <int, int> ans; bool vis[200001]; set <int> nodes;
+
+void dfs(int cur)
+{
+    vis[cur] = true;
+    for (auto &i : adj[cur]) {
+        if (!vis[i.first]) {
+            ans[i.first] = ans[cur] + i.second;
+            dfs(i.first);
+        }
+    }
+}
+
+void ginit(int cur)
+{
+    vis[cur] = true;
+    for (auto &i : adj[cur]) {
+        if (!vis[i.first]) {
+            if (i.second < 0) ++ans[1];
+            ginit(i.first);
+        }
+    }
+}
+
+int main()
+{
+    Taha_on_da_code;
+    int n; cin >> n;
+    for (int i = 1; i < n; i++) {
+        int f, t; cin >> f >> t;
+        nodes.insert(f); nodes.insert(t);
+        adj[f].emplace_back(t, 1);
+        adj[t].emplace_back(f, -1);
+    }
+    memset(vis, 0, sizeof vis);
+    ginit(1);
+    memset(vis, 0, sizeof vis);
+    dfs(1);
+    int m = n;
+    for (auto &i : nodes) {
+        m = min(ans[i], m);
+    }
+    vector <int> anss;
+    for (auto &i : nodes) {
+        if (ans[i] == m) {
+            anss.push_back(i);
+        }
+    }
+    cout << m <<  endl;
+    for (auto &i : anss) cout << i << ' ';
+    return 0;
+}
 */
