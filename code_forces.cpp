@@ -1095,4 +1095,147 @@ int main()
     cout << (ans && (g[y][x] == 'X' || cnt > 1) ? "YES" : "NO");
     return 0;
 }
+
+// Permutation Transformation
+
+string g[501]; int dx[] = {-1, 1, 0, 0}, dy[] = {0, 0, -1, 1};
+ 
+void dfs(int x, int y, int &xw, int &yw, int &n, int &m, bool &ans)
+{
+    g[y][x] = 'X';
+    for (int i = 0; i < 4; i++) {
+        if (x+dx[i] >= 0 && x+dx[i] < m && y+dy[i] >= 0 && y+dy[i] < n) {
+            if (yw == y+dy[i] && xw == x+dx[i]) {ans = true; return;}
+            if (g[y+dy[i]][x+dx[i]] == '.')
+                dfs(x + dx[i], y + dy[i], xw, yw, n, m, ans);
+        }
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, m, x0, y0, x, y, cnt = 0; bool ans = false; cin >> n >> m;
+    for (int i = 0; i < n; i++) cin >> g[i];
+    cin >> y0 >> x0 >> y >> x; x0--; y0--; x--; y--;
+    for (int i = 0; i < 4; i++) {
+        if (x+dx[i] >= 0 && x+dx[i] < m && y+dy[i] >= 0 && y+dy[i] < n) {
+            if (g[y+dy[i]][x+dx[i]] == '.' || (x0 == x+dx[i] && y0 == y+dy[i])) cnt++;
+        }
+    }
+    dfs(x0, y0, x, y, n, m, ans);
+    cout << (ans && (g[y][x] == 'X' || cnt > 1) ? "YES" : "NO");
+    return 0;
+}
+
+// Books Exchange (hard version)
+
+vector <int> adj[200010], done; bool vis[200010];
+ 
+void dfs(int cur, int it, int &inc)
+{
+    done.push_back(cur-1);
+    vis[cur] = true;
+    for (auto &i : adj[cur]) {
+        if (!vis[i]) dfs(i, it+1, inc);
+        else {inc = it; return;}
+    }
+}
+ 
+void burn()
+{
+    int n, inc = 1; cin >> n; vector <int> a(n), ans(n);
+    memset(vis, 0, sizeof vis);
+    for (int i = 1, p; i <= n; i++) {
+        cin >> p;
+        adj[i].push_back(p);
+    }
+    for (int i = 1; i <= n; i++) {
+        if (!vis[i]) {
+            dfs(i, 1, inc);
+            for (auto &j: done) {
+                ans[j] = inc;
+            }
+            done.clear();
+        }
+    }
+    for (auto &i : ans) cout << i << ' ';
+    cout << endl;
+    for (int i = 1; i <= n; i++) adj[i].clear();
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Fox And Two Dots
+
+string a[51]; bool vis[51][51];
+int dx[] = {0, 0, 1, -1}, dy[] = {1, -1, 0, 0};
+ 
+void dfs (int y, int x, bool & ans, int it, char c, int m, int n, int x0, int y0)
+{
+    vis[y][x] = true; it++;
+    for (int i = 0; i < 4; i++) {
+        if (x+dx[i] >= 0 && x+dx[i] < m && y+dy[i] >= 0 && y+dy[i] < n) {
+            if (a[y+dy[i]][x+dx[i]] == c) {
+                if (x+dx[i] == x0 && y+dy[i] == y0 && it >= 4) {ans = true; return;}
+                if (!vis[y+dy[i]][x+dx[i]])
+                    dfs(y+dy[i], x+dx[i], ans, it, c, m, n, x0, y0);
+            }
+        }
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, m; cin >> n >> m; bool ans = false;
+    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int i = 0; !ans && i < n; i++) {
+        for (int j = 0; !ans && j < m; j++) {
+            memset(vis, 0, sizeof vis);
+            dfs(i, j, ans, 0, a[i][j], m, n, j, i);
+        }
+    }
+    cout << (ans ? "Yes" : "No");
+    return 0;
+}
+
+// Secret Passwords
+
+vector <int> adj[200100]; map <int, bool> vis;
+ 
+void dfs (int cur)
+{
+    vis[cur] = true;
+    for (auto &i : adj[cur]) {
+        if (!vis[i]) dfs(i);
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int n, ans = 0; string s; cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> s;
+        for (auto &j: s) {
+            adj[i].push_back(n+j-'a');
+            adj[n+j-'a'].push_back(i);
+        }
+    }
+    for (int i = n; i < n+26; i++) {
+        if (!adj[i].empty() && !vis[i]) {
+            ans++; dfs(i);
+        }
+    }
+    cout << ans;
+    return 0;
+}
+
 */
