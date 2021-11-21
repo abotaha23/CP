@@ -1238,4 +1238,419 @@ int main()
     return 0;
 }
 
+//  I Wanna Be the Guy
+
+int main()
+{
+    Taha_on_da_code;
+    int n, p, y; cin >> n >> p; set <int> lev;
+    while(p--) {
+        int k; cin >> k;
+        lev.insert(k);
+    }
+    cin >> y;
+    while(y--) {
+        int k; cin >> k;
+        lev.insert(k);
+    }
+    int j = 1;
+    for (auto &i : lev) {
+        if (i != j++) {
+            cout << "Oh, my keyboard!";
+            return 0;
+        }
+    }
+    cout << (j > n ? "I become the guy." : "Oh, my keyboard!");
+    return 0;
+}
+
+// Two Arrays And Swaps
+
+void burn()
+{
+    int n, k, m_s = 0; cin >> n >> k;
+    vector <int> a(n), b(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i]; m_s += a[i];
+    }
+    for (int i = 0; i < n; i++) {
+        cin >> b[i];
+    }
+    sort(a.begin(), a.end()); sort(b.begin(), b.end(), greater<>());
+    for (int i = 0; i < k; i++){
+        if (b[i] > a[i]) m_s+=b[i]-a[i];
+    }
+    cout << m_s << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Yet Another Two Integers Problem
+
+void burn()
+{
+    int a, b, m, s, ans; cin >> a >> b;
+    s = min(a, b); m = max(a, b);
+    ans = (m-s)/10;
+    if ((m-s)%10) ans++;
+    cout << ans << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Even Array
+
+void burn()
+{
+    int n, a, lim, cnt = 0; cin >> n;
+    lim = (n+1)/2;
+    for (int i = 0; i < n; i++) {
+        cin >> a;
+        cnt+=((a-i)&1);
+        lim-=!(a&1);
+    }
+    cout << (!lim ? cnt/2 : -1) << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Honest Coach
+
+void burn()
+{
+    int n, k, ans = INT_MAX; bool sc = false;
+    cin >> n; vector <int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    sort(a.begin(), a.end());
+    for (int i = 1; i < n; i++) {
+        ans=min(ans, a[i]-a[i-1]);
+    }
+    cout << ans<< endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+//  Minimal Square
+
+void burn()
+{
+    int a, b, l; cin >> a >> b;
+    l = (max(a, b) > 2*min(a, b) ? max(a, b) : 2*min(a, b));
+    cout << l*l << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+//  Restore the Permutation by Merger
+
+void burn()
+{
+    int n, a; cin >> n; n*=2; bool cur[51] = {false}; vector <int> ans;
+    while(n--) {
+        cin >> a;
+        if (!cur[a]) ans.push_back(a);
+        cur[a] = true;
+    }
+    for (auto &i : ans) cout << i << ' ';
+    cout << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Two Arrays
+
+void burn()
+{
+    int n, u; cin >> n >> u;
+    vector <int> ans(n, 0); vector <pair <int, int>> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i].first;
+        a[i].second = i;
+    }
+    sort(a.begin(), a.end()); bool per = true;
+    for (int i = 0; i < n; i++) {
+        if (a[i].first == u/2 && !(u&1)) {
+            ans[a[i].second] = per;
+            per = !per;
+        }
+        else ans[a[i].second] = a[i].first > u/2;
+    }
+    for (auto &i : ans) {
+        cout << i << ' ';
+    }
+    cout << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+//  Kuroni and Simple Strings
+
+void burn()
+{
+    string s; cin >> s; set <int> ans;
+    for (int i = 0, j = (int)s.length()-1; i < j; i++) {
+        if (s[i] == '(') {
+            ans.insert(i+1);
+            s[i] = '-';
+            while (i < j) {
+                if (s[j] == ')') {
+                    ans.insert(j+1);
+                    s[j] = '-';
+                    break;
+                }
+                j--;
+            }
+            if (i >= j) {
+                ans.erase(i+1);
+            }
+        }
+    }
+    if (!ans.empty()) cout << 1 << endl;
+    cout << ans.size() << endl;
+    for (auto &i : ans) {
+        cout << i << ' ';
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t = 1; // cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Kirill And The Game
+
+void burn()
+{
+    ll l, r, x, y, k;
+    cin >> l >> r >> x >> y >> k;
+    if (r/k < x || l/k > y) {
+        cout << "NO";
+        return;
+    }
+    while(x <= y) {
+        ll m = (x+y)/2;
+        if (k*m >= l && k*m <= r) {
+            cout << "YES";
+            return;
+        }
+        else if (k*m > r) {
+            y = m-1;
+        }
+        else x = m+1;
+    }
+    cout << "NO";
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t = 1; // cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Pair Programming
+
+void burn()
+{
+    int k, n, m, m_k;
+    cin >> k >> n >> m;
+    m_k = k; vector <int> a(n), b(m), all;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 0; i < m; i++) {
+        cin >> b[i];
+    }
+    for (int i = 0, j = 0; i < n || j < m; ) {
+        bool cut = false;
+        if (i < n && a[i] <= k) {
+            k+=!a[i];
+            all.push_back(a[i++]);
+            cut = true;
+        }
+        if (j < m && b[j] <= k) {
+            k+=!b[j];
+            all.push_back(b[j++]);
+            cut = true;
+        }
+        if (!cut) {
+            cout << -1 << endl;
+            return;
+        }
+    }
+    for (auto &i : all) {
+        cout << i << ' ';
+    }
+    cout << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t; cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+//  Where Are My Flakes?
+
+void burn()
+{
+    int n, m, w, cnt, r, l; cin >> n >> m;
+    l =  n+1; r = 0;
+    string g1, g2, s, g3;
+    while(m--) {
+        cin >> g1 >> g2 >> s >> g3 >> w;
+        if (s == "right") {
+            if (w > r) r = w;
+        }
+        else if (s == "left") {
+            if (w < l) l = w;
+        }
+    }
+    cnt = l-r-1;
+    cout << (cnt > 0 ? cnt : -1) << endl;
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t = 1; // cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Kuriyama Mirai's Stones
+
+void burn()
+{
+    int n, m; cin >> n;
+    vector <ll> a(n), v(n), u(n);
+    for (auto &i : a) cin >> i;
+    v[0]=a[0];
+    for (int i = 1; i < n; i++) {
+        v[i]=a[i]+v[i-1];
+    }
+    sort (a.begin(), a.end());
+    u[0]=a[0];
+    for (int i = 1; i < n; i++) {
+        u[i]=a[i]+u[i-1];
+    }
+    cin >> m;
+    while(m--) {
+        ll t, l, r, ans;
+        cin >> t >> l >> r;
+        l-=2; r--;
+        if (t == 1) {
+            ans = v[r];
+            if (l > -1) ans -= v[l];
+        }
+        else {
+            ans = u[r];
+            if (l > -1) ans -= u[l];
+        }
+        cout << ans << endl;
+    }
+ 
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t = 1; // cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+// Greg and Array
+
+void burn()
+{
+    int n, m, k; cin >> n >> m >> k;
+    vector <ll> a(n), op(n+1, 0), b(m+1, 0);
+    array <ll , 3> p[m];
+    for (auto &i : a) cin >> i;
+    for (int i = 0; i < m; i++) {
+        cin >> p[i][0] >> p[i][1] >> p[i][2];
+    }
+    while (k--) {
+        int x, y;
+        cin >> x >> y; x--;
+        ++b[x]; --b[y];
+    }
+    for (int i = 1; i < m; i++) {
+        b[i]+=b[i-1];
+    }
+    for (int i = 0; i < m; i++) {
+        p[i][2]*=b[i];
+    }
+    for (int i = 0; i < m; i++) {
+        op[p[i][0]-1]+=p[i][2];
+        op[p[i][1]]-=p[i][2];
+    }
+    for (int i = 1; i < n; i++) {
+        op[i]+=op[i-1];
+    }
+    for (int i = 0; i < n; i++) {
+        cout << (ll)a[i]+op[i] << ' ';
+    }
+}
+ 
+int main()
+{
+    Taha_on_da_code;
+    int t = 1; // cin >> t;
+    while(t--) burn();
+    return 0;
+}
+
+
 */
