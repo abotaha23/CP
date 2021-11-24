@@ -1,5 +1,4 @@
 #include <iostream>
-#include <bits/stdc++.h>
 #include <chrono>
 #include <string>
 #include <sstream>
@@ -21,14 +20,21 @@ typedef long long ll;
 
 using namespace std;
 
-//const int d4i[4]={-1, 0, 1, 0}, d4j[4]={0, 1, 0, -1};
-//const int d8i[8]={-1, -1, 0, 1, 1, 1, 0, -1}, d8j[8]={0, 1, 1, 1, 0, -1, -1, -1};
-
 void burn()
 {
-    int n, m; cin >> n >> m;
-    if (n == 1 && m == 1) cout << 0 << endl;
-    else cout << min(2, min(n, m)) << endl;
+    int x, y; cin >> x >> y;
+    if((x+y)&1) {
+        cout << -1 << ' ' << -1 << endl;
+        return;
+    }
+    for (int i = 0; i < 50; i++) {
+        for (int j = 0; j < 50; j++) {
+            if ((i+j)*2==x+y && abs(x-i)+abs(y-j)==(x+y)/2) {
+                cout << i << ' ' << j << endl;
+                return;
+            }
+        }
+    }
 }
 
 int main()
