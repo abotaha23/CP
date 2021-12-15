@@ -20,20 +20,66 @@ typedef long long ll;
 
 using namespace std;
 
-//const int di[8]={0, 0, 1, -1, 1, -1, -1, 1}, dj[8]={1, -1, 0, 0, 1, -1, 1, -1};
+const int dx[8]={0, 0, 1, -1, 1, -1, -1, 1}, dy[8]={1, -1, 0, 0, 1, -1, 1, -1}, M = 1e9+7, M2 = 998244353;
+
+vector <vector <int>> adj; vector <bool> fri; vector <int> nf, dis; bool flag; int ans;
+
+void dfs1(int cur, int par)
+{
+    if (cur != 1) dis[cur] = 1+dis[par];
+    if (fri[cur]) nf[cur] = 0;
+    for (auto &i : adj[cur]) {
+        if (i != par) {
+            dfs1(i, cur);
+            nf[cur] = min(nf[cur], nf[i]+1);
+        }
+    }
+}
+
+void dfs2(int cur, int par)
+{
+    if (cur != 1 && adj[cur].size() == 1) {
+        flag = true;
+        return;
+    }
+    for (auto &i : adj[cur]) {
+        if (i != par && nf[i] > dis[i]) {
+            dfs2(i, cur);
+        }
+        else if (i != par) ans++;
+    }
+}
 
 void burn()
 {
-
+    int n, k; cin >> n >> k;
+    flag = false; ans = 0;
+    fri.assign(n+1, false);
+    nf.assign(n+1, 1e9);
+    dis.assign(n+1, 0);
+    adj.assign(n+1, {});
+    for (int i = 0; i < k; i++) {
+        int in; cin >> in;
+        fri[in] = true;
+    }
+    for (int i = 1; i < n; i++) {
+        int f, s;
+        cin >> f >> s;
+        adj[f].push_back(s);
+        adj[s].push_back(f);
+    }
+    dfs1(1, 1e9);
+    dfs2(1, 1e9);
+    cout << (flag ? -1 : ans);
 }
 
 int main()
 {
     Taha_on_da_code;
-    int t = 1;  cin >> t;
+    int t = 1; cin >> t;
     while(t--) {
         burn();
-        cout << endl;
+        cout << '\n';
     }
     return 0;
 }
