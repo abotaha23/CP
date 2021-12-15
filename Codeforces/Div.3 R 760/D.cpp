@@ -24,8 +24,21 @@ using namespace std;
 
 void burn()
 {
-    int n; cin >> n;
-
+    int n, k; cin >> n >> k;
+    vector <int> a(n);
+    for (auto &i : a) cin >> i;
+    sort(a.begin(), a.end());
+    int sc = 0;
+    for (int i = 0; i < n-2*k; i++) {
+        sc += a[i];
+    }
+    int meq = 0, cur[(int)2e5+10] = {0};
+    for (int i = n-2*k; i < n; i++) {
+        ++cur[a[i]];
+        if (cur[a[i]] > meq) meq = cur[a[i]];
+    }
+    sc+=(meq-k > 0 ? meq-k : 0);
+    cout << sc;
 }
 
 int main()
